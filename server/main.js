@@ -41,7 +41,7 @@ export function generateEmployees () {
               avatar: `${imageName}.jpg`
             })
           // Checks if the employee with the manager title has a name in the list provided (Names must be an exact match)
-          } else if (['Tyler Marefke', 'Qiana Comstock', 'Tenchimeng Xiong'].includes(employee.name)) {
+          } else if ([''].includes(employee.name)) {
             // Creates image name based of the employee's name
             const imageName = employee.name.replace(/[^a-zA-Z]/ig, '')
             // Fetches image and places it in the public avatars folder
