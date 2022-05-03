@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import axios from 'axios'
 import dotenv from 'dotenv'
-import { generateEmployees } from '../main.js'
+import { generateEmployees } from './dataCollection.js'
 
 // Read the .env variables into the environment
 dotenv.config()
