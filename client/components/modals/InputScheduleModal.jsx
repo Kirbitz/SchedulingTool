@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import InputModalBody from './modalParts/InputModalBody.jsx'
+import InputModalBody from '../modalParts/InputModalBody.jsx'
 
 import { Box, Button, Dialog, DialogActions, DialogTitle, Paper, Tab, Tabs, Typography } from '@mui/material'
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getManagerList } from '../dataHelper.js'
+import { getEmployeeList } from '../dataHelper.js'
 
 import { Grid, Typography } from '@mui/material'
 
-import ManagerCard from './ManagerCard.jsx'
+import EmployeeCard from './EmployeeCard.jsx'
 
 export default function ManagerGrid (props) {
   const { previewToggle, onClickCallback } = props
@@ -12,8 +12,8 @@ export default function ManagerGrid (props) {
   const [managerSummary, setManagerSummary] = React.useState(null)
 
   const updateManagerData = () => {
-    getManagerList()
-      .then((response) => { setManagerSummary(response.data) })
+    getEmployeeList()
+      .then((response) => { setManagerSummary(response.data.filter((employee) => { return (employee.locations['1949304']) })) })
       .catch((err) => {
         alert('Failed to retrieve data')
         console.error(err)
@@ -33,7 +33,7 @@ export default function ManagerGrid (props) {
   }
 
   const managerCards = managerSummary.map((manager) => {
-    return <ManagerCard key={manager.id} employee={manager} previewToggle={previewToggle} onClickCallback={onClickCallback} />
+    return <EmployeeCard key={manager.id} employee={manager} previewToggle={previewToggle} onClickCallback={onClickCallback} isManager />
   })
 
   return (

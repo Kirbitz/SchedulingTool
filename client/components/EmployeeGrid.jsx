@@ -17,7 +17,7 @@ export default function EmployeeGrid (props) {
 
   const updateEmployeeData = () => {
     getEmployeeList()
-      .then((response) => { setEmployeeSummary(response.data) })
+      .then((response) => { setEmployeeSummary(response.data.filter((employee) => { return (!employee.locations['1949304']) })) })
       .catch((err) => {
         alert('Failed to retrieve data')
         console.error(err)

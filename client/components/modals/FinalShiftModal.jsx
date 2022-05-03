@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getWeekendShifts } from '../dataHelper.js'
+import { getFinalShifts } from '../../dataHelper.js'
 
-import WeekendModalBody from './modalParts/WeekendModalBody.jsx'
-import MyDatePicker from './modalParts/MyDatePicker.jsx'
+import FinalModalBody from '../modalParts/FinalModalBody.jsx'
+import MyDatePicker from '../modalParts/MyDatePicker.jsx'
 
 import { Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material'
 
-export default function WeekendShiftsModal (props) {
+export default function FinalShiftModal (props) {
   const { previewToggle, openModal, onClose } = props
 
   const [shiftData, setShiftData] = React.useState(null)
@@ -19,13 +19,13 @@ export default function WeekendShiftsModal (props) {
   const getShifts = () => {
     if (startDate && endDate) {
       setOpenLoading(true)
-      getWeekendShifts(startDate.format('L'), endDate.format('L'))
+      getFinalShifts(startDate.format('L'), endDate.format('L'))
         .then((response) => {
-          setShiftData(response.data)
+          setShiftData(response.data.filter((employee) => { return (!employee.locations['1949304']) }))
           setOpenLoading(false)
         })
         .catch((err) => {
-          alert('Failed to get weekend shifts!\nPlease enter a proper date and time!')
+          alert('Failed to get weekend shifts!')
           console.error(err)
           setOpenLoading(false)
         })
@@ -41,7 +41,7 @@ export default function WeekendShiftsModal (props) {
       <DialogTitle>
         <Box sx={{ display: 'flex' }}>
           <Typography variant='h3' component='div' sx={{ flexGrow: 1 }}>
-            Weekend Shifts
+            Finals Shifts
           </Typography>
           <MyDatePicker textLabel={'Start Date'} dateVal={startDate} changeDate={setStartDate} />
           <MyDatePicker textLabel={'End Date'} dateVal={endDate} changeDate={setEndDate} />
@@ -53,7 +53,7 @@ export default function WeekendShiftsModal (props) {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <WeekendModalBody previewToggle={previewToggle} weekendShiftData={shiftData} />
+      <FinalModalBody previewToggle={previewToggle} finalShiftData={shiftData} />
       <DialogActions>
         <Button variant='outlined' sx={{ color: '#0b233f' }} onClick={getShifts}>Get Shifts</Button>
         <Button variant='outlined' color='secondary' onClick={hideModal}>Close</Button>
@@ -62,13 +62,13 @@ export default function WeekendShiftsModal (props) {
   )
 }
 
-WeekendShiftsModal.propTypes = {
+FinalShiftModal.propTypes = {
   openModal: PropTypes.bool,
   previewToggle: PropTypes.bool.isRequired,
   onClose: PropTypes.func
 }
 
-WeekendShiftsModal.defaultProps = {
+FinalShiftModal.defaultProps = {
   openModal: false,
   onClose: null
 }
