@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getManagerDetails } from '../dataHelper.js'
+import { getEmployeeDetails } from '../../dataHelper.js'
 
 import { Button, Box, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@mui/material'
 import { Backpack, CatchingPokemon, Email, PhoneAndroid, RocketLaunch, Star, Work } from '@mui/icons-material'
@@ -21,14 +21,14 @@ export default function DetailsModal (props) {
   // Retrieves the latest game data and updates state
   const updateGameDetails = () => {
     if (employeeId) {
-      getManagerDetails(employeeId)
+      getEmployeeDetails(employeeId)
         .then((response) => {
           setEmployeeDetails(response)
           setModalOpen(true)
         })
         .catch((err) => {
-          alert('Failed to retrieve manager data')
-          console.error('Failed to retrieve manager data')
+          alert('Failed to retrieve game data')
+          console.error('Failed to retrieve game data')
           console.error(err)
         })
     }
@@ -72,7 +72,7 @@ export default function DetailsModal (props) {
           <Box sx={{ display: 'flex', alignItems: 'left' }}>
             <Star sx={{ mr: 1, color: '#FFD700' }}/>
             <Typography variant='subtitle1' component='div'>
-              {`${employeeDetails.data.yearAtSTAR} Year`}
+              {`${employeeDetails.data.yearAtSTAR} Year at STAR`}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'left' }}>

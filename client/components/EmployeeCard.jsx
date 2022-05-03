@@ -9,7 +9,7 @@ import { Backpack, Person, Star } from '@mui/icons-material'
  */
 export default function EmployeeCard (props) {
   // Destructor props into game and gameClickCallback
-  const { employee, previewToggle, onClickCallback } = props
+  const { employee, previewToggle, onClickCallback, isManager } = props
 
   const hoverAction = {
     cursor: 'pointer',
@@ -22,7 +22,7 @@ export default function EmployeeCard (props) {
 
   // Convert game data to game cards
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
+    <Grid item xs={12} sm={6} md={4} lg={isManager ? 4 : 3}>
       <Card sx={[{ display: 'flex' }, { '&:hover': hoverAction }]} onClick={onCardClicked}>
         <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
@@ -59,6 +59,7 @@ export default function EmployeeCard (props) {
 
 // Checks for the props coming into GameCard
 EmployeeCard.propTypes = {
+  isManager: PropTypes.bool,
   onClickCallback: PropTypes.func,
   previewToggle: PropTypes.bool.isRequired,
   employee: PropTypes.shape({
@@ -71,5 +72,6 @@ EmployeeCard.propTypes = {
 }
 
 EmployeeCard.defaultProps = {
+  isManager: false,
   onClickCallback: null
 }

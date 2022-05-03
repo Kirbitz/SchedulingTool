@@ -9,7 +9,6 @@ import { generateEmployees } from './dataCollection.js'
 dotenv.config()
 
 let employeeData = {}
-let managerData = {}
 
 // Generates data of the employees from humanity
 // Separates data into two files employeeData.json and managerData.json
@@ -19,8 +18,6 @@ generateEmployees()
     // Grab raw data for the board employees
     const rawData = fs.readFileSync(path.join('server', 'api', 'employeeData.json'), { encoding: 'utf-8' })
     employeeData = JSON.parse(rawData)
-    const rawManagerData = fs.readFileSync(path.join('server', 'api', 'managerData.json'), { encoding: 'utf-8' })
-    managerData = JSON.parse(rawManagerData)
   })
   .catch((err) => {
     console.log('Failed to collect employee data!')
@@ -47,41 +44,11 @@ router.get('/employees', (req, res) => {
   res.json(summaryEmployees)
 })
 
-// Posts all managers to screen in JSON format
-router.get('/managers', (req, res) => {
-  const summaryEmployees = managerData.map((employee) => {
-    return {
-      id: employee.id,
-      name: employee.name,
-      yearAtSTAR: employee.yearAtSTAR,
-      major: employee.major,
-      avatar: employee.avatar
-    }
-  })
-  res.json(summaryEmployees)
-})
-
 // Posts a single employee to screen in JSON format
 router.get('/employee/:id', (req, res) => {
   const employeeID = req.params.id
   const summaryEmployee = employeeData.find((employee) => {
     return employee.id === employeeID
-  })
-
-  if (summaryEmployee) {
-    res.json(summaryEmployee)
-  } else {
-    res.status(404).json({
-      error: 'Failed to find employee'
-    })
-  }
-})
-
-// Posts a single manager to screen in JSON format
-router.get('/manager/:id', (req, res) => {
-  const managerID = req.params.id
-  const summaryEmployee = managerData.find((employee) => {
-    return employee.id === managerID
   })
 
   if (summaryEmployee) {
@@ -123,7 +90,6 @@ router.get('/weekend_shifts/:monthStart/:dayStart/:yearStart/:monthEnd/:dayEnd/:
         delete employee.major
         delete employee.avatar
         delete employee.interestingFact
-        delete employee.locations
       })
       // Loops through response data
       response.data.data.forEach(element => {
@@ -198,7 +164,6 @@ router.get('/shifts/:monthStart/:dayStart/:yearStart/:monthEnd/:dayEnd/:yearEnd'
         delete employee.major
         delete employee.avatar
         delete employee.interestingFact
-        delete employee.locations
       })
 
       // Loops through response data
