@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import { Autocomplete, TextField } from '@mui/material'
 
 export default function ComboBox (props) {
+  // Colors for the textFields
   const textFieldColors = ['success', 'warning', 'secondary']
 
+  // Destructor props into previewToggle, schedulePos, and employees
   const { previewToggle, schedulePos, employees } = props
 
   const previewEmployees = [
@@ -30,6 +32,7 @@ export default function ComboBox (props) {
   )
 }
 
+// Props validation for ComboBox
 ComboBox.propTypes = {
   previewToggle: PropTypes.bool.isRequired,
   schedulePos: PropTypes.number.isRequired,

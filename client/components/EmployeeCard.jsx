@@ -4,23 +4,23 @@ import PropTypes from 'prop-types'
 import { Grid, Card, Box, CardContent, CardMedia, Typography } from '@mui/material'
 import { Backpack, Person, Star } from '@mui/icons-material'
 
-/**
- * A single gameCard
- */
+// Employee Card with base data of the employee
 export default function EmployeeCard (props) {
-  // Destructor props into game and gameClickCallback
+  // Destructor props into employee, previewToggle, onClickCallback, and isManager
   const { employee, previewToggle, onClickCallback, isManager } = props
 
+  // Hover action for the cards
   const hoverAction = {
     cursor: 'pointer',
     boxShadow: 5
   }
 
+  // Runs call back function up a card being clicked
   const onCardClicked = () => {
     if (onClickCallback) { onClickCallback(employee.id) }
   }
 
-  // Convert game data to game cards
+  // Convert employee data to employee cards
   return (
     <Grid item xs={12} sm={6} md={4} lg={isManager ? 4 : 3}>
       <Card sx={[{ display: 'flex' }, { '&:hover': hoverAction }]} onClick={onCardClicked}>
@@ -57,7 +57,7 @@ export default function EmployeeCard (props) {
   )
 }
 
-// Checks for the props coming into GameCard
+// Checks for the props coming into EmployeeCard
 EmployeeCard.propTypes = {
   isManager: PropTypes.bool,
   onClickCallback: PropTypes.func,

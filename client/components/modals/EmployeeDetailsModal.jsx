@@ -5,20 +5,21 @@ import { getEmployeeDetails } from '../../dataHelper.js'
 import { Button, Box, Dialog, DialogTitle, DialogActions, DialogContent, Typography } from '@mui/material'
 import { Backpack, CatchingPokemon, Email, PhoneAndroid, RocketLaunch, Star, Work } from '@mui/icons-material'
 
-/**
- * A grid of game cards
- */
+// Details modal of the employees
 export default function DetailsModal (props) {
+  // Destructor props into employeeId, onClose, and previewToggle
   const { employeeId, onClose, previewToggle } = props
 
+  // Hooks for employeeDetails and opening the employee details modal
   const [employeeDetails, setEmployeeDetails] = React.useState(null)
   const [modalOpen, setModalOpen] = React.useState(false)
 
+  // Uses effect upon first mounting of this component
   React.useEffect(() => {
     updateGameDetails()
   }, [employeeId])
 
-  // Retrieves the latest game data and updates state
+  // Retrieves the latest employee data and updates state
   const updateGameDetails = () => {
     if (employeeId) {
       getEmployeeDetails(employeeId)
@@ -34,23 +35,25 @@ export default function DetailsModal (props) {
     }
   }
 
+  // Function to hide the employee details modal
   const hideModal = () => {
     setModalOpen(false)
     if (onClose) { onClose() }
   }
 
-  // Render method must return a single React element
-  // - Can access this.props and this.state
+  // Checks if the employeeDetails has data
   if (employeeDetails) {
     const workLocations = Object.values(employeeDetails.data.locations).join(', ')
     return (
       <Dialog fullWidth open={modalOpen} onClose={hideModal} maxWidth='xs'>
         <DialogTitle align='center'>
+          {/* Title is the employees name or Sam Doe for preview mode */}
           <Typography variant='h3' component='div'>
             {previewToggle ? 'Sam Doe' : `${employeeDetails.data.name}`}
           </Typography>
         </DialogTitle>
         <DialogContent>
+          {/* Content contains a box for each item with an icon that is aligned to the left */}
           <Box sx={{ display: 'flex', alignItems: 'left' }}>
             <Email sx={{ mr: 1 }}/>
             <Typography variant='subtitle1' component='div'>
@@ -103,6 +106,7 @@ export default function DetailsModal (props) {
   return (<div></div>)
 }
 
+// Prop validation for DetailsModal
 DetailsModal.propTypes = {
   employeeId: PropTypes.string.isRequired,
   previewToggle: PropTypes.bool.isRequired,

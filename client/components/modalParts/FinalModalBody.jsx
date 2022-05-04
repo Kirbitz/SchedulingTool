@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import { Box, Divider, DialogContent, Typography } from '@mui/material'
 
 export default function WeekendModalBody (props) {
+  // Destructor props into previewToggle and finalShiftData
   const { previewToggle, finalShiftData } = props
 
+  // Checks if the finalShiftData has data within it
   if (finalShiftData) {
     return (
       <DialogContent>
+        {/* Maps the data from finalShiftData to React tags */}
         {finalShiftData.map((employee) => (
           <React.Fragment key={employee.id}>
             <Divider />
@@ -48,6 +51,7 @@ export default function WeekendModalBody (props) {
   }
 }
 
+// Prop validation for WeekendModalBody
 WeekendModalBody.propTypes = {
   previewToggle: PropTypes.bool.isRequired,
   finalShiftData: PropTypes.arrayOf(PropTypes.shape({

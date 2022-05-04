@@ -6,8 +6,10 @@ import ComboBox from './ComboBox.jsx'
 import { Paper, Typography } from '@mui/material'
 
 export default function ShiftCard (props) {
+  // Card colors for the papers
   const shiftColors = ['#1ec740', 'orange', 'violet']
 
+  // Destructor props into previewToggle, schedulePos, startTime, endTime and employees
   const { previewToggle, schedulePos, startTime, endTime, employees } = props
 
   return (
@@ -20,6 +22,7 @@ export default function ShiftCard (props) {
   )
 }
 
+// Props validation for ShiftCard
 ShiftCard.propTypes = {
   startTime: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,

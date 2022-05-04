@@ -18,7 +18,7 @@ export function generateEmployees () {
       .then((response) => {
         // Loops through response data
         response.data.data.forEach(employee => {
-          // Checks if the employee does not have the manager label
+          // Checks if the employee does not have the manager label and if they are a student manager via name
           if (!employee.schedules['1949304'] || [''].includes(employee.name)) {
             // Creates image name based of the employee's name
             const imageName = employee.name.replace(/[^a-zA-Z]/ig, '')
