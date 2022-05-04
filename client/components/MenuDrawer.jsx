@@ -5,6 +5,7 @@ import { Box, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from
 import { EventNote, DateRange, NextWeek } from '@mui/icons-material'
 
 export default function MenuDrawer (props) {
+  // Destructor props into showDrawer, toggleDrawer, openWeekendModak, openFinalModal, and openInputModal
   const { showDrawer, toggleDrawer, openWeekendModal, openFinalModal, openInputModal } = props
 
   return (
@@ -17,6 +18,7 @@ export default function MenuDrawer (props) {
           onClick={toggleDrawer}
         >
           <List>
+            {/* Items for the first section of the drawer */}
             <ListItem button onClick={openInputModal}>
               <ListItemIcon>
                 <EventNote sx={{ color: '#2e88db' }} />
@@ -26,6 +28,7 @@ export default function MenuDrawer (props) {
           </List>
           <Divider />
           <List>
+            {/* Items for the second section of the drawer */}
             {['Weekend Shifts', 'Finals Shifts'].map((text, index) => (
               <ListItem button key={index} onClick={index % 2 === 0 ? openWeekendModal : openFinalModal}>
                 <ListItemIcon>
@@ -40,6 +43,7 @@ export default function MenuDrawer (props) {
   )
 }
 
+// Prop validation for MenuDrawer
 MenuDrawer.propTypes = {
   showDrawer: PropTypes.bool.isRequired,
   openWeekendModal: PropTypes.func,

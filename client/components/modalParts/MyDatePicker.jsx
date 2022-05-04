@@ -6,6 +6,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { TextField } from '@mui/material'
 
 export default function MyDatePicker (props) {
+  // Destructor props into textLabel, dateVal, and changeDate
   const { textLabel, dateVal, changeDate } = props
 
   return (
@@ -22,6 +23,7 @@ export default function MyDatePicker (props) {
   )
 }
 
+// Prop validation for MyDatePicker
 MyDatePicker.propTypes = {
   textLabel: PropTypes.string.isRequired,
   dateVal: PropTypes.object,

@@ -8,13 +8,17 @@ import EmployeeCard from './EmployeeCard.jsx'
 import TabPanel from './miscParts/TabPanel.jsx'
 
 export default function EmployeeGrid (props) {
+  // Destructor props into previewToggle and onClickCallback
   const { previewToggle, onClickCallback } = props
 
+  // Hooks for grabbing employee data from getEmployeeList and tabPosition
   const [employeeSummary, setEmployeeSummary] = React.useState(null)
   const [tabPos, setTabPos] = React.useState(0)
 
+  // Indicator colors for the tab selector
   const tabColors = ['#2e88db', 'green', 'orange', 'purple']
 
+  // function to grab employee data and store it into employeeSummary
   const updateEmployeeData = () => {
     getEmployeeList()
       .then((response) => { setEmployeeSummary(response.data.filter((employee) => { return (!employee.locations['1949304']) })) })
@@ -24,16 +28,19 @@ export default function EmployeeGrid (props) {
       })
   }
 
+  // Handles change of a tabPosition
   const handleChange = (event, newTabPos) => {
     if (newTabPos !== tabPos) {
       setTabPos(newTabPos)
     }
   }
 
+  // Uses effect upon first mounting of this component
   React.useEffect(() => {
     updateEmployeeData()
   }, [])
 
+  // Checks if data is in employeeSummary
   if (!Array.isArray(employeeSummary) || employeeSummary.length < 1) {
     return (
       <Grid>
@@ -42,10 +49,12 @@ export default function EmployeeGrid (props) {
     )
   }
 
+  // Creates base employee cards for the first tab position
   const employeeCards = employeeSummary.map((employee) => {
     return <EmployeeCard key={employee.id} employee={employee} previewToggle={previewToggle} onClickCallback={onClickCallback} />
   })
 
+  // Creates employee cards with a specific location
   const locationEmployeeCards = (location) => {
     return employeeSummary.map((employee) => {
       if (Object.values(employee.locations).includes(location)) {
@@ -60,6 +69,7 @@ export default function EmployeeGrid (props) {
       <Typography variant='h3' component='div' align='center' sx={{ mb: 2 }}>
         Employees
       </Typography>
+      {/* Tabs for different locations in the helpdesk */}
       <Paper elevation={2}>
         <Tabs
           value={tabPos}
@@ -76,6 +86,7 @@ export default function EmployeeGrid (props) {
           <Tab label='PC Repair' sx={{ color: 'purple' }} />
         </Tabs>
       </Paper>
+      {/* Different panels of information for tabpanel */}
       <TabPanel value={tabPos} index={0}>
         <Grid container spacing={2} sx={{ mb: 2, mt: 2 }}>
           {employeeCards}
@@ -100,6 +111,7 @@ export default function EmployeeGrid (props) {
   )
 }
 
+// Prop validation for EmployeeGrid
 EmployeeGrid.propTypes = {
   previewToggle: PropTypes.bool.isRequired,
   onClickCallback: PropTypes.func

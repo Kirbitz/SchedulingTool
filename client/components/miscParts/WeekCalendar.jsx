@@ -8,14 +8,17 @@ import ShiftCard from './ShiftCard'
 import { Box, Divider, Typography } from '@mui/material'
 
 export default function WeekCalendar (props) {
+  // Time data for the calendars
   const shiftTimesStandard = ['7:30am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:15pm', '2:30pm', '3:30pm', '4:30pm']
   const shiftTimes = ['7:30am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:15pm', '2:30pm', '3:30pm', '4:30pm', '6:00pm', '7:00pm', '8:00pm', '9:00pm', '10:00pm']
   const sundayShiftTimes = ['12:00pm', '2:30pm', '5:00pm', '7:30pm', '10:00pm']
   const saturdayShiftTimes = ['10:00am', '12:00pm', '2:00pm']
   const weekNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
+  // Hooks for the collection of employee data
   const [employees, setEmployees] = React.useState([])
 
+  // Grabs the employee data
   const getEmployeeData = () => {
     getEmployeeList()
       .then((response) => {
@@ -32,17 +35,21 @@ export default function WeekCalendar (props) {
       })
   }
 
+  // Uses effect when the component is mounted for the first time
   React.useEffect(() => {
     getEmployeeData()
   }, [])
 
+  // Destructor props into previewToggle and schedulePos
   const { previewToggle, schedulePos } = props
 
+  // Cards data for be put into a set of arrays
   const weekdayStandardCards = []
   const weekdayLongCards = []
   const sundayCards = []
   const saturdayCards = []
 
+  // Generates cards for a standard weekday
   for (let index = 0; index < shiftTimesStandard.length - 1; index++) {
     weekdayStandardCards.push(<ShiftCard
                                 key={index}
@@ -54,6 +61,7 @@ export default function WeekCalendar (props) {
                               />)
   }
 
+  // Generates cards for walkup
   if (schedulePos === 0) {
     for (let index = 0; index < shiftTimes.length - 1; index++) {
       weekdayLongCards.push(<ShiftCard
@@ -66,6 +74,7 @@ export default function WeekCalendar (props) {
                             />)
     }
 
+    // Sunday card generation
     for (let index = 0; index < sundayShiftTimes.length - 1; index++) {
       sundayCards.push(<ShiftCard
                           key={index + 40}
@@ -77,6 +86,7 @@ export default function WeekCalendar (props) {
                         />)
     }
 
+    // Sunday card generation
     for (let index = 0; index < saturdayShiftTimes.length - 1; index++) {
       saturdayCards.push(<ShiftCard
                             key={index + 60}
@@ -123,6 +133,7 @@ export default function WeekCalendar (props) {
   )
 }
 
+// Props validation for WeekCalendar
 WeekCalendar.propTypes = {
   schedulePos: PropTypes.number.isRequired,
   previewToggle: PropTypes.bool.isRequired

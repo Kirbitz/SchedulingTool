@@ -12,7 +12,7 @@ let employeeData = {}
 
 // Generates data of the employees from humanity
 // Separates data into two files employeeData.json and managerData.json
-// Manager names will have to be updated in main.js
+// Manager names will have to be updated in dataCollection.js
 generateEmployees()
   .then(() => {
     // Grab raw data for the board employees

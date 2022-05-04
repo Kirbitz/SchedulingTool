@@ -7,22 +7,28 @@ import { Menu } from '@mui/icons-material'
 import MenuDrawer from './MenuDrawer.jsx'
 
 export default function PageHeader (props) {
+  // Destructor props into previewToggle, openWeekendModal, openFinalModal, and openInputModal
   const { previewToggle, openWeekendModal, openFinalModal, openInputModal } = props
 
+  // Hooks for grabbing showDrawer state
   const [showDrawer, setShowDrawer] = React.useState(false)
 
+  // function to open the menu drawer
   const openDrawer = () => {
     setShowDrawer(true)
   }
 
+  // function to close the menu drawer
   const closeDrawer = () => {
     setShowDrawer(false)
   }
 
   return (
     <React.Fragment>
+      {/* Header bar for the website */}
       <AppBar sx={{ bgcolor: '#0b233f' }}>
         <Toolbar>
+          {/* IconButton for the menu options */}
           <IconButton
             size='large'
             edge='start'
@@ -33,23 +39,26 @@ export default function PageHeader (props) {
           >
             <Menu />
           </IconButton>
+          {/* Header title */}
           <Typography variant='h4' component='h3' sx={{ flexGrow: 1 }}>
             Techdesk Schedule Tool {previewToggle ? '- Preview' : ''}
           </Typography>
+          {/* Stout image for the bar */}
           <img
             src='\StoutIcon.jpg'
             alt='Stout Logo'
             height='80px'
             width='80px'
-            />
+          />
 
-            <MenuDrawer
-              showDrawer={showDrawer}
-              openWeekendModal={openWeekendModal}
-              openFinalModal={openFinalModal}
-              openInputModal={openInputModal}
-              toggleDrawer={closeDrawer}
-            />
+          {/* MenuDrawer component to display options the the user */}
+          <MenuDrawer
+            showDrawer={showDrawer}
+            openWeekendModal={openWeekendModal}
+            openFinalModal={openFinalModal}
+            openInputModal={openInputModal}
+            toggleDrawer={closeDrawer}
+          />
         </Toolbar>
       </AppBar>
       <Toolbar />
@@ -57,6 +66,7 @@ export default function PageHeader (props) {
   )
 }
 
+// Prop validation for PageHeader
 PageHeader.propTypes = {
   previewToggle: PropTypes.bool.isRequired,
   openWeekendModal: PropTypes.func,
